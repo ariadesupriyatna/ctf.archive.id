@@ -1,5 +1,8 @@
+![1](gambar/1.jpg)
 
-### Ringkasan
+
+
+### Alternatif
 
 | Perintah | Fungsi                               |
 |---|---|
