@@ -1,16 +1,13 @@
-module Main where
-
-compute :: String
-compute = let perimeter = 1000
-               findProduct a b
-                   | a < b = let c = perimeter - a - b
-                             in if a * a + b * b == c * c
-                                then Just (show (a * b * c))
-                                else findProduct a (b + 1)
-                   | otherwise = Nothing
-           in head [result | a <- [1..perimeter], b <- [a+1..perimeter], 
-                            let result = findProduct a b, result /= Nothing]
+perim :: Int
+perim = 1000
 
 main :: IO ()
-main = putStrLn (compute)
+main = putStrLn (show ans)
+
+ans :: Int
+ans = head [a * b * (perim - a - b) | a <- [1..perim], b <- [a+1..perim], isIntegerRightTriangle a b]
+
+isIntegerRightTriangle :: Int -> Int -> Bool
+isIntegerRightTriangle a b = a < b && b < c && a * a + b * b == c * c
+  where c = perim - a - b
 
