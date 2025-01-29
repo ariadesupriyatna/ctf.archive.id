@@ -1,25 +1,14 @@
-import Data.List (find)
-import Data.Maybe (fromJust)
-import Control.Monad (forever)
+main :: IO ()
+main = putStrLn (show ans)
 
-compute :: IO String
-compute = do
-    let n = 600851475143
-    result <- smallestFactor n
-    return (show result)
+ans :: Integer
+ans = largestPrimeFactor (600851475143 :: Integer)
+
+largestPrimeFactor :: Integer -> Integer
+largestPrimeFactor n =
+    let p = smallestPrimeFactor n
+    in if p == n then p
+       else largestPrimeFactor (n `div` p)
 
 smallestPrimeFactor :: Integer -> Integer
-smallestPrimeFactor n
-    | n < 2     = error "n must be >= 2"
-    | otherwise = fromJust $ find (\i -> n `mod` i == 0) [2..(floor . sqrt . fromIntegral $ n)]
-
-smallestFactor :: Integer -> IO Integer
-smallestFactor n = forever $ do
-    let p = smallestPrimeFactor n
-    if p < n
-        then smallestFactor (n `div` p)
-        else return n
-
-main :: IO ()
-main = compute >>= putStrLn
-
+smallestPrimeFactor n = head [k | k <- [2..n], n `mod` k == 0]
