@@ -1,9 +1,12 @@
-import qualified Data.List as List
-import qualified Data.Numbers.Primes as Primes
-
-compute :: IO String
-compute = return $ show $ List.genericIndex (filter Primes.isPrime [2..]) 9999
-
 main :: IO ()
-main = compute >>= putStrLn
+main = putStrLn (show ans)
+
+ans :: Int
+ans = primes !! 10000
+
+-- A lazy infinite sequence of prime numbers
+primes :: [Int]
+primes = sieve [2..]
+  where
+    sieve (p:xs) = p : sieve (filter (\x -> mod x p /= 0) xs)
 
